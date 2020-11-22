@@ -1,6 +1,8 @@
 import {Request, Response} from "express";
 import {getRepository} from 'typeorm';
 import Pet from '../models/Pet';
+import petView from '../views/pets_views';
+import * as Yup from 'yup';
 
 export default {
 
@@ -10,7 +12,7 @@ export default {
         const pet = await petsRepository.findOneOrFail(id, {
             relations: ['images']
         });
-        return response.json(pet);
+        return response.json(petView.render(pet));
     },
 
     async index(request:Request,response:Response) {
@@ -18,7 +20,7 @@ export default {
         const pets = await petsRepository.find({
             relations:['images']
         });
-        return response.json(pets);
+        return response.json(petView.renderMany(pets));
     },
 
 
@@ -29,7 +31,8 @@ export default {
         const images = requestImages.map(image => {
              return {path: image.filename}
          })
-        const pet = petsRepository.create({
+
+         const data = {
             name,
             catdog,
             latitude,
@@ -37,10 +40,31 @@ export default {
             about,
             instructions,
             opening_hours,
-            open_on_weekends: open_on_weekends === 'false',
+            open_on_weekends: open_on_weekends === 'true',
             images
-            
-        });
+         };
+
+         const schema = Yup.object().shape({
+             name:Yup.string().required("Nome obrigtório"),
+             catdog:Yup.string().required("Nome obrigtório"),
+             latitude:Yup.number().required(),
+             longitude:Yup.number().required(),
+             about: Yup.string().required().max(300),
+             instructions: Yup.string().required(),
+             opening_hours: Yup.string().required(),
+             open_on_weekends:Yup.boolean().required(),
+             images: Yup.array(Yup.object().shape({
+             path:Yup.string().required(),
+             }),
+             )
+         });
+
+         
+         await schema.validate(data, {
+             abortEarly: false,
+         });
+
+        const pet = petsRepository.create(data);
     
         await petsRepository.save(pet);
     
