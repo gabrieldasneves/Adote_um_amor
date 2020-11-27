@@ -46,7 +46,7 @@ export default {
 
          const schema = Yup.object().shape({
              name:Yup.string().required("Nome obrigtório"),
-             catdog:Yup.string().required("Nome obrigtório"),
+             catdog:Yup.string(),
              latitude:Yup.number().required(),
              longitude:Yup.number().required(),
              about: Yup.string().required().max(300),
