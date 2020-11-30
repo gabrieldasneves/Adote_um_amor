@@ -47,17 +47,6 @@
 
 
 
-
-
-## Layout ou Deploy da Aplicação :dash:
-
-> Link do deploy da aplicação. Exemplo com netlify: https://certificates-for-everyone-womakerscode.netlify.app/
-
-... 
-
-Se ainda não houver deploy, insira capturas de tela da aplicação ou gifs
-
-
 ## Como rodar a aplicação :arrow_forward:
 
 No terminal, clone o projeto: 
@@ -65,6 +54,8 @@ No terminal, clone o projeto:
 ```
 git clone https://github.com/React-Bootcamp-WoMarkersCode/certificate-generator
 ```
+
+
 
 ... 
 
@@ -77,7 +68,6 @@ Explique com mais detalhes como a sua aplicação poderia ser utilizada. O uso d
 
 Exemplo: Caso a sua aplicação tenha alguma funcionalidade de login apresente neste tópico os dados necessários para acessá-la.
 
-## JSON :floppy_disk:
 
 
 ## Licença 
